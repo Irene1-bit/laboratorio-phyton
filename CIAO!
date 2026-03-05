@@ -1,1 +1,25 @@
 Repository del corso di phyton
+#
+#File:main.py
+#
+#Author:Irene
+#
+#Date:2026/03/04
+#
+#Version:1.0
+#
+#Description: my first project
+
+import turtle #importo modulo turtle
+window = turtle.Screen() #creo la finestra dove lavorare
+donatello = turtle.Turtle() #creo una tartaruga e la assegno alla variabile
+donatello.color('violet')
+
+for i in range(4):
+  print(i)
+  donatello.forward(50) #moviemnti per disegnare un quadrato
+  donatello.left(90)
+
+
+
+
