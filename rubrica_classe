@@ -1,0 +1,78 @@
+import json
+
+class Rubrica:
+    """Una classe per gestire una rubrica telefonica con i dati dei contatti"""
+
+    def __init__(self, dizionario_iniziale=None):
+        """Inizializza la rubrica con un dizionario"""
+        # self.contatti memorizza i dati dell'istanza
+        self.contatti = dizionario_iniziale
+
+    @classmethod
+    def apri_da_json(cls, nome_file):
+        """Inizializza la rubrica leggendo da un file JSON"""
+        with open(nome_file, 'r') as f:
+            dati = json.load(f)
+        return cls(dati)
+
+    @classmethod
+    def apri_da_txt(cls, nome_file):
+        """Inizializza la rubrica leggendo da un file di testo"""
+        with open(nome_file, 'r') as f:
+            contenuto = f.read()
+            # eval trasforma il testo formattato come dizionario in un dizionario Python
+            dati = eval(contenuto)
+        return cls(dati)
+
+    def aggiungi(self, nome, dati_contatto):
+        """Aggiunge un elemento alla rubrica"""
+        if self.contatti is None:
+            print("Prima apri una rubrica")
+            return
+        
+        self.contatti[nome] = dati_contatto
+
+    def rimuovi(self, nome):
+        """Rimuove un elemento dalla rubrica dato il nome"""
+        # Se la rubrica non è stata aperta (None) o non ha elementi
+        if self.contatti is None or len(self.contatti) == 0:
+            print("La rubrica è vuota.")
+            return
+        
+        if nome not in self.contatti:
+            print(f"Il contatto {nome} non esiste in rubrica")
+            return
+        
+        del self.contatti[nome]
+
+    def stampa(self, nome):
+        """Stampa tutte le informazioni di un contatto dato il nome"""
+        if self.contatti is None or len(self.contatti) == 0:
+            print("La rubrica è vuota.")
+            return
+        
+        if nome not in self.contatti:
+            print(f"Il contatto {nome} non esiste in rubrica")
+            return
+        
+        contatto = self.contatti[nome]
+        print(f"Nome: {nome}")
+        print(f"Nato il: {contatto['giorno']} {contatto['mese']} {contatto['anno']}")
+        print(f"Età: {contatto['età']}")
+        print(f"Sesso: {contatto['sesso']}")
+        print(f"Mail: {contatto['mail']}")
+
+    def salva(self, nome_file):
+        """Salva la rubrica su file JSON o TXT"""
+        if self.contatti is None or len(self.contatti) == 0:
+            print("La rubrica è vuota")
+            return
+
+        # Sceglie la modalità di salvataggio basandosi sulla parte finale del nome del file
+        if nome_file.endswith(".json"):
+            with open(nome_file, 'w') as f:
+                json.dump(self.contatti, f, indent=4)
+        else:
+            with open(nome_file, 'w') as f:
+                # Scrive il dizionario formattato come stringa di testo
+                f.write(str(self.contatti))

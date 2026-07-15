@@ -1,0 +1,146 @@
+import json
+import random
+
+FILE_PAROLE = "parole.json"
+TENTATIVI_MAX = 6
+
+
+# ---------------------------------------------------------------------
+# Eccezioni personalizzate: come StopIteration, non indicano un "errore"
+# ma la fine (buona o cattiva) di un'operazione, cioè del turno di gioco.
+# ---------------------------------------------------------------------
+
+class ParolaIndovinata(Exception):
+    """Sollevata quando il giocatore indovina l'intera parola."""
+    pass
+
+
+class TentativiEsauriti(Exception):
+    """Sollevata quando finiscono i tentativi a disposizione."""
+    pass
+
+
+def carica_parole(percorso):
+    """Legge la lista di parole da un file JSON: qui NON controlliamo
+    prima le precondizioni, proviamo direttamente e gestiamo l'eccezione
+    se qualcosa va storto (stile EAFP)."""
+
+    try:
+        with open(percorso, "r", encoding="utf-8") as f:
+            dati = json.load(f)
+    except FileNotFoundError:
+        print(f"Errore: il file '{percorso}' non esiste.")
+        return None
+    except json.JSONDecodeError as errore:
+        print(f"Errore: il file '{percorso}' non è un JSON valido ({errore}).")
+        return None
+
+    try:
+        lista_parole = dati["parole"]
+    except KeyError:
+        print("Errore: il file JSON non contiene la chiave 'parole'.")
+        return None
+
+    try:
+        return random.choice(lista_parole).lower()
+    except IndexError:
+        # random.choice su una lista vuota solleva IndexError
+        print("Errore: la lista delle parole è vuota.")
+        return None
+
+
+def costruisci_posizioni(parola):
+    """Costruisce un dizionario {lettera: [indici]} usando lo stesso
+    identico schema EAFP della dispensa per riempire un dizionario:
+    proviamo ad aggiungere all'indice esistente, e se la chiave non
+    c'è ancora, catturiamo il KeyError e la creiamo."""
+    posizioni = {}
+    for indice, carattere in enumerate(parola):
+        try:
+            posizioni[carattere].append(indice)
+        except KeyError:
+            posizioni[carattere] = [indice]
+    return posizioni
+
+
+def mostra_stato(parola, posizioni_rivelate, lettere_tentate, tentativi_rimasti):
+    """Stampa lo stato corrente del gioco."""
+    mascherata = " ".join(
+        carattere if indice in posizioni_rivelate else "_"
+        for indice, carattere in enumerate(parola)
+    )
+    print(f"\nParola: {mascherata}")
+    print(f"Tentativi rimasti: {tentativi_rimasti}")
+    print(f"Lettere già tentate: {', '.join(sorted(lettere_tentate)) or '(nessuna)'}")
+
+
+def gioca(parola):
+    """Ciclo principale del gioco, in stile EAFP: proviamo direttamente
+    le operazioni e gestiamo le eccezioni, invece di controllare prima."""
+
+    posizioni = costruisci_posizioni(parola)
+    lettere_tentate = {}          # dict usato come "insieme" controllato via KeyError
+    posizioni_rivelate = set()
+    tentativi_rimasti = TENTATIVI_MAX
+
+    try:
+        while True:
+            mostra_stato(parola, posizioni_rivelate, lettere_tentate, tentativi_rimasti)
+            guess = input("Inserisci una lettera o prova l'intera parola: ").strip().lower()
+
+            try:
+                if len(guess) == 1:
+                    # --- guess di una singola lettera ---
+                    try:
+                        lettere_tentate[guess]  # se la chiave esiste, niente eccezione
+                    except KeyError:
+                        # la lettera non era mai stata tentata: la registriamo
+                        lettere_tentate[guess] = True
+                        try:
+                            indici = posizioni[guess]
+                        except KeyError:
+                            tentativi_rimasti -= 1
+                            print("Lettera sbagliata!")
+                        else:
+                            posizioni_rivelate.update(indici)
+                            print("Lettera corretta!")
+                    else:
+                        print(f"Hai già provato la lettera '{guess}'.")
+
+                else:
+                    # --- guess dell'intera parola ---
+                    if guess == parola:
+                        raise ParolaIndovinata
+                    else:
+                        tentativi_rimasti -= 1
+                        print("Parola sbagliata!")
+
+                if len(posizioni_rivelate) == len(parola):
+                    raise ParolaIndovinata
+                if tentativi_rimasti <= 0:
+                    raise TentativiEsauriti
+
+            finally:
+                print("--- fine turno ---")
+
+    except ParolaIndovinata:
+        print(f"\nHai indovinato! La parola era '{parola}'.")
+    except TentativiEsauriti:
+        print(f"\nHai esaurito i tentativi. La parola era '{parola}'.")
+
+
+def main():
+    parola = carica_parole(FILE_PAROLE)
+
+    # qui un semplice controllo sul valore di ritorno non è una violazione
+    # dello stile EAFP: la gestione delle eccezioni vere e proprie è già
+    # avvenuta dentro carica_parole()
+    if parola is None:
+        print("Impossibile avviare il gioco.")
+        return
+
+    gioca(parola)
+
+
+if __name__ == "__main__":
+    main()
