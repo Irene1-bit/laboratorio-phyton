@@ -33,29 +33,30 @@ args = parser.parse_args()
 #punto1
 '''Scrivere rubrica su un file testo'''
 if args.file_testo:
-    file = open('rubrica.txt', 'w')       #crea file in scrittura
+    file = open('rubrica.txt', 'w') # 1. Crea o sovrascrive un file chiamato rubrica.txt in modalità scrittura ('w')
 
-    for nome, dati in rubrica.items():    #scorre tutti i contatti
+    for nome, dati in rubrica.items(): # 2. Cicla su ogni personaggio della rubrica
+        # 3. Costruisce una riga di testo con i dati separati da virgole e un a capo (\n) alla fine
         riga = f"{nome}, {dati['giorno']}, {dati['mese']}, {dati['anno']}, {dati['età']}, {dati['sesso']}, {dati['mail']}\n"
-        file.write(riga)  #crea una riga testo con i dati e la scrive nel file 
+        file.write(riga) # 4. Scrive la riga nel file
 
-    file.close()        #chiude il file
+    file.close() # 5. Chiude il file per salvare definitivamente le modifiche
 
 #punto2
 '''Salvarela rubrica in formato JSON'''
 if args.salva_json:
-    file = open('rubrica.json', 'w')        #apre file JSON in scrittura
-    json.dump(rubrica, file)        #converte il dizionario in JSON
-    file.close()        #chiude il file
+    file = open('rubrica.json', 'w') # 1. Crea un file rubrica.json
+    json.dump(rubrica, file) # 2. Prende il dizionario Python e lo traduce in testo JSON scrivendolo nel file
+    file.close() # 3. Chiude il file
 
 #punto3
 '''Legge il file JSON'''
 if args.leggi_json:
-    file = open('rubrica.json', 'r')        #apre file JSON in lettura
-    dati = json.load(file)      #trasforma JSON in dizionario python
-    file.close()        #chiude il file
+    file = open('rubrica.json', 'r') # 1. Apre il file rubrica.json in modalità lettura ('r')
+    dati = json.load(file) # 2. Legge il testo JSON e lo riconverte in un dizionario Python
+    file.close() # 3. Chiude il file
 
-    print(dati)     #stampa i dati letti
+    print(dati) # 4. Stampa a schermo il dizionario ottenuto
 
 
 #COME USARE IL TERMINALE

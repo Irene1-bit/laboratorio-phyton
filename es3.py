@@ -33,7 +33,7 @@ rubrica = {
 
 #creo il parser per leggere i comandi dal terminale
 parser = argparse.ArgumentParser()
-parser.add_argument('--stampa', action='store_true')
+parser.add_argument('--stampa', action='store_true') #serve per dire che azione frae, se nello script scrivo --stampa si attiverà quella, la parte dopo serve per non inserire un testo o un valore dopo
 parser.add_argument('--eta', action='store_true')
 parser.add_argument('--inversa', action='store_true')
 parser.add_argument('--messaggi', action='store_true')

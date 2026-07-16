@@ -7,8 +7,9 @@
 #
 # Version: 1.0
 #
-# Description: esercizio 1
-#
+# Description: esercizio 1, chiede all'utente uno o piu numeri interi positivi e, per ciascuno, genera una sequenza seguendo la regola
+#Si ripete finché il numero non arriva a 1 (o finché la sequenza non supera i 100 elementi, come sicurezza). Alla fine, per ogni sequenza, il programma calcola 
+#alcune statistiche e mostra quali numeri della sequenza sono divisibili per 5.
 
 
 
@@ -91,7 +92,10 @@ def chiedi_quanti_numeri():
         return quanti
 
 
-def main():
+def main():         #Il main() non contiene la logica di calcolo: si limita 
+                    #a chiamare le funzioni nel giusto ordine e a gestire il loop per ripetere l'operazione più volte. 
+                    #Questo è il senso della lezione: dividere 
+                    #un problema complesso in blocchi più piccoli, ognuno con la propria responsabilità.
     quanti = chiedi_quanti_numeri()
 
     risultati = []  # lista di tuple (numero_iniziale, lunghezza_sequenza)
@@ -122,4 +126,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main()  
