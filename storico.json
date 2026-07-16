@@ -1,0 +1,24 @@
+[
+  {
+    "data": "2026-07-16T14:04:49",
+    "azione": "genera",
+    "lunghezza": 12,
+    "password": "#***********",
+    "punteggio": "7/7",
+    "giudizio": "Eccellente"
+  },
+  {
+    "data": "2026-07-16T14:05:03",
+    "azione": "verifica",
+    "password": "i***********",
+    "punteggio": "5/7",
+    "giudizio": "Forte"
+  },
+  {
+    "data": "2026-07-16T14:07:14",
+    "azione": "verifica",
+    "password": "S**************",
+    "punteggio": "7/7",
+    "giudizio": "Eccellente"
+  }
+]
