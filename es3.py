@@ -15,7 +15,7 @@ import argparse
 
 "rubrica base"
 rubrica = {
-  'Paolino Paperino': {'giorno': 9,
+'Paolino Paperino': {'giorno': 9,
                       'mese': 'giugno',
                       'anno': 1934,
                       'età': 93,
@@ -79,7 +79,7 @@ if args.nome:
         saluto = "o" if dati['sesso'] == "M" else "a"
         print(f"""
     Car{saluto} {args.nome},
-    sei nat{saluto} il {dati['giorno']} di {dati['mese']} del {dati['anno']} e hai {dati['età']} anni. Mail: {dati['mail']}""")
+    sei nat{saluto} il {dati['giorno']} di {dati['mese']} del {dati['anno']} e hai {dati['età']} anni.  Ti manderemo gli auguri a {dati['mail']}""")
     else:
         print("Nome non trovato")
 

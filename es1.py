@@ -27,7 +27,7 @@ def genera_numero():
         try:
             numero = int(testo)
         except ValueError:
-            print("Devi inserire un numero intero (es. 7, non 'sette' o 7.5).")
+            print("Devi inserire un numero intero ")
             continue
 
         if numero <= 0:
@@ -38,7 +38,7 @@ def genera_numero():
 
 
 def genera_sequenza(numero):
-    """Costruisce la sequenza di Collatz a partire da 'numero':
+    """Costruisce la sequenza a partire da 'numero':
     - se pari, il prossimo termine è numero / 2
     - se dispari, il prossimo termine è numero * 3 + 1
     Si ferma quando arriva a 1 oppure supera 100 elementi."""
@@ -60,7 +60,8 @@ def analizza_sequenza(lista):
     massimo = max(lista)
     lunghezza = len(lista)
     somma = sum(lista)
-    return massimo, lunghezza, somma
+    lista_sequenza=(massimo, lunghezza, somma)
+    return lista_sequenza
 
 
 def ricerca(lista):
@@ -115,10 +116,6 @@ def main():         #Il main() non contiene la logica di calcolo: si limita
 
         risultati.append((numero, lunghezza))
 
-    # --- Riepilogo finale ---
-    print("\n=== Riepilogo finale ===")
-    for numero, lunghezza in risultati:
-        print(f"  Numero iniziale {numero} -> sequenza di lunghezza {lunghezza}")
 
     numero_vincente, lunghezza_vincente = max(risultati, key=lambda coppia: coppia[1])
     print(f"\nIl numero che ha generato la sequenza più lunga è {numero_vincente} "

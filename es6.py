@@ -1,8 +1,12 @@
 # 
 # File: es6.py
+#
 # Author: Irene De Luca 
+#
 # Date: 28/05/2026
+#
 # Version: 1.0
+#
 # Description: esercizio 6
 #
 
