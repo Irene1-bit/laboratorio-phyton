@@ -16,7 +16,7 @@ import time
 # Definisce una funzione generatrice che calcola i valori della tabellina
 def genera_tabellina(numero, fino_a=10):
     """Generatore: produce i valori 0*numero, 1*numero, ..., fino_a*numero
-    uno alla volta (yield), invece di costruire subito tutta la lista."""
+    uno alla volta , invece di costruire subito tutta la lista."""
     # Avvia un ciclo che va da 0 fino al valore di "fino_a" (incluso, grazie a + 1)
     for moltiplicatore in range(fino_a + 1):
         # yield restituisce il risultato corrente e "mette in pausa" la funzione,
@@ -105,11 +105,10 @@ def gioca_tabellina(numero, fino_a=10):
             try:
                 # Tenta di convertire la stringa inserita dall'utente in un numero intero (int)
                 valore_utente = int(risposta)
-            # Se la conversione fallisce (es. l'utente ha scritto lettere, caratteri speciali o numeri con la virgola)
+            # Se la conversione fallisce 
             except ValueError:
                 # Mostra un messaggio esplicativo di errore senza far crashare il programma
-                print("Risposta non valida: inserisci un numero intero "
-                      "(niente lettere, simboli o numeri decimali).")
+                print("Risposta non valida: inserisci un numero intero ")
                 # Forza il ciclo "while True" a ricominciare da capo, saltando il resto del codice e richiedendo l'input
                 continue
 
@@ -124,7 +123,7 @@ def gioca_tabellina(numero, fino_a=10):
             # Se il numero inserito è valido ma il risultato matematico è sbagliato
             else:
                 # Avvisa dell'errore e suggerisce quale operazione l'utente deve riprovare a calcolare
-                print(f"Sbagliato, riprova! (stai cercando {moltiplicatore} x {numero})")
+                print(f"Sbagliato, riprova!")
 
     # Finito il ciclo for (tutte le domande completate), stampa il riepilogo finale del punteggio ottenuto
     print(f"\nHai completato la tabellina del {numero}! Punteggio: {punteggio}/{totale_domande}")
@@ -162,7 +161,5 @@ def main():
     # Avvia la partita vera e propria passando il numero inserito
     gioca_tabellina(numero)
 
-
-# Idioma standard Python: esegue la funzione main() solo se il file viene lanciato direttamente (non importato)
 if __name__ == "__main__":
     main()
