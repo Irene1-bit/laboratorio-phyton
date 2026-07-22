@@ -14,7 +14,7 @@ import random  # Consente di estrarre caratteri casuali e mescolare liste
 import string  # Fornisce gruppi di caratteri predefiniti (lettere, cifre, ecc.)
 
 
-# --- ECCEZIONI PERSONALIZZATE ---
+# ECCEZIONI PERSONALIZZATE 
 
 
 class CriteriaError(Exception):
@@ -23,7 +23,7 @@ class CriteriaError(Exception):
     pass  # Segnaposto per definire una classe di eccezione vuota
 
 
-# --- GENERAZIONE PASSWORD ---
+#  GENERAZIONE PASSWORD 
 
 
 def genera_password(lunghezza=12, maiuscole=True, numeri=True, simboli=True):
@@ -51,14 +51,10 @@ def genera_password(lunghezza=12, maiuscole=True, numeri=True, simboli=True):
 
     # CONTROLLO LBYL: Verifica se la lunghezza è sufficiente per i caratteri obbligatori
     if lunghezza < len(obbligatori):
-        raise CriteriaError(
-            f"Lunghezza {lunghezza} troppo corta! Servono almeno {len(obbligatori)} caratteri."
-        )
+        raise CriteriaError(f"Lunghezza {lunghezza} troppo corta! Servono almeno {len(obbligatori)} caratteri.")
 
     # Completa il resto della password con caratteri casuali dal pool
-    resto = [
-        random.choice(pool) for _ in range(lunghezza - len(obbligatori))
-    ]
+    resto = [random.choice(pool) for _ in range(lunghezza - len(obbligatori))]
 
     # Unisce i caratteri obbligatori con il resto e li mescola casualmente
     caratteri = obbligatori + resto
@@ -68,7 +64,7 @@ def genera_password(lunghezza=12, maiuscole=True, numeri=True, simboli=True):
     return "".join(caratteri)
 
 
-# --- VALUTAZIONE E ROBUSTEZZA ---
+# VALUTAZIONE E ROBUSTEZZA 
 
 # Dizionario contenente i criteri di valutazione espresso tramite funzioni lambda
 CRITERI = {
@@ -112,13 +108,13 @@ def valutazione_testuale(punteggio, totale_criteri):
         return "Debole"
 
 
-# --- INTERFACCIA DA RIGA DI COMANDO (CLI) ---
+# INTERFACCIA DA RIGA DI COMANDO 
 
 
 def crea_parser():
     """Configura e restituisce il parser per i comandi da terminale."""
     parser = argparse.ArgumentParser(
-        description="PasswordLab: Generatore e verificatore di password."
+        description="Password: Generatore e verificatore di password."
     )
 
     # Argomento per generare una password
