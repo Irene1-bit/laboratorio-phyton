@@ -33,14 +33,14 @@ args = parser.parse_args()
 #punto1
 '''Scrivere rubrica su un file testo'''
 if args.file_testo:
-    file = open('rubrica.txt', 'w') # 1. Crea o sovrascrive un file chiamato rubrica.txt in modalità scrittura ('w')
+    file = open('rubrica.txt', 'w') #Crea o sovrascrive un file chiamato rubrica.txt in modalità scrittura ('w')
 
-    for nome, dati in rubrica.items(): # 2. Cicla su ogni personaggio della rubrica
-        # 3. Costruisce una riga di testo con i dati separati da virgole e un a capo (\n) alla fine
+    for nome, dati in rubrica.items(): # Cicla su ogni personaggio della rubrica
+        # Costruisce una riga di testo con i dati separati da virgole e un a capo (\n) alla fine
         riga = f"{nome}, {dati['giorno']}, {dati['mese']}, {dati['anno']}, {dati['età']}, {dati['sesso']}, {dati['mail']}\n"
-        file.write(riga) # 4. Scrive la riga nel file
+        file.write(riga) #Scrive la riga nel file
 
-    file.close() # 5. Chiude il file per salvare definitivamente le modifiche
+    file.close() # Chiude il file per salvare definitivamente le modifiche
 
 #punto2
 '''Salvarela rubrica in formato JSON'''

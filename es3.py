@@ -44,21 +44,22 @@ args = parser.parse_args()
 
 #punto1
 '''stampa tutta la rubrica'''
-if args.stampa:
+if args.stampa: #in abse a che comando scrivo userà una di queste
     for nome in rubrica:
         print(nome, rubrica[nome])
 
 #punto2
 '''ordinale persone per età'''
 if args.eta:
-    ordinata = sorted(rubrica.items(), key=lambda x: x[1]['età'])
+    ordinata = sorted(rubrica.items(), key=lambda x: x[1]['età'])   #Dice a sorted() di ordinare gli elementi guardando
+                                                                    #dentro x[1] (il dizionario con i dati) la chiave 'età'.
     for nome, dati in ordinata:
         print(nome, dati['età'])
 
 #punto3
 '''ordina per età ma al contrario'''
 if args.inversa:
-    ordinata = sorted(rubrica.items(), key=lambda x: x[1]['età'], reverse=True)
+    ordinata = sorted(rubrica.items(), key=lambda x: x[1]['età'], reverse=True) #inerte dal piu grande al piu piccolo
     for nome, dati in ordinata:
         print(nome, dati['età'])
 
@@ -66,7 +67,8 @@ if args.inversa:
 '''stampa un messaggio per ogni persona'''
 if args.messaggi:
     for nome, dati in rubrica.items():
-        saluto = "o" if dati['sesso'] == "M" else "a"
+        saluto = "o" if dati['sesso'] == "M" 
+else "a"
         print(f"Car{saluto} {nome},")
         print(f"sei nat{saluto} il {dati['giorno']} di {dati['mese']} del {dati['anno']} e hai {dati['età']} anni.")  
         print(f"Mail:{dati['mail']}")
@@ -91,7 +93,3 @@ if args.chiave:
             print(nome, rubrica[nome][args.chiave])
 
 
-#COME USARLO NEL TERMINALE
-#1-python3 es3.py --stampa
-#2- python3 es3.py --eta
-#3-python3 es3.py -- nome

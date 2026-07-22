@@ -130,9 +130,7 @@ class Rubrica:
                 f.write(str(self.contatti))
 
 
-# ==============================================================================
 # 2. PROGRAMMA INTERATTIVO PRINCIPALE
-# ==============================================================================
 # Definisce un dizionario di prova preconfezionato da usare come rubrica di default
 dati_rubrica = {
   'Paolino Paperino': {'giorno': 9, 'mese': 'giugno', 'anno': 1934, 'età': 93, 'sesso': 'M', 'mail': 'paolino.paperin0@disney.org'},
